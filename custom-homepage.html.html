@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./assets/default_favicon.png">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <title>Own your day.</title>
+</head>
+
+<body>
+    <div id="container"></div>
+
+    <style>
+        body {
+            /* background: linear-gradient(280deg, #141e30, #243b55); */
+            /* background: linear-gradient(250deg, #414141, #000000); */
+            background: linear-gradient(225deg, #2C3E50, #000000);
+            font-family: 'Oswald', sans-serif;
+            color: #fff;
+            margin: 0;
+        }
+
+        #container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .to-do-list {
+            width: 25%;
+            margin: 0;
+            border-left: 0.5px solid rgba(172, 172, 172, 0.5);
+        }
+
+        .main {
+            width: 75%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 70px;
+            /* border: 1px solid white; */
+        }
+
+        .main-msg {
+            font-size: 22px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            /* letter-spacing: 1px; */
+            margin-top: 50px;
+        }
+
+        .new-input {
+            width: 400px;
+            height: 35px;
+            background-color: rgba(201, 201, 201, 0.3);
+            margin-top: 20px;
+            color: rgb(255, 255, 255);
+            border: none;
+            border-radius: 5px;
+            box-shadow: 1px 2px 8px 2px rgba(210, 210, 210, 0.3);
+        }
+
+        .new-input:focus {
+            outline: none;
+        }
+
+        .task-form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .task-submit {
+            margin-left: 10px;
+            height: 35px;
+            background-color: rgba(201, 201, 201, 0.0);
+            color: rgb(255, 255, 255);
+            border: none;
+            border-radius: 5px;
+        }
+
+        .submit-icon {
+            font-size: 30px;
+            color: rgb(129, 129, 129);
+            cursor: pointer;
+        }
+
+        .submit-label {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .time-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            font-weight: 700;
+        }
+
+        .mm-dd-day {
+            font-size: 22px;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mm-dd-day div {
+            margin: 0 2px 0 2px;
+        }
+
+        #hr,
+        #sec,
+        #min {
+            width: 85px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .to-do-list {
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+
+    <script>
+        function create(tag, classListArr = []) {
+            const newEl = document.createElement(tag);
+            if (classListArr.length > 0) {
+                classListArr.forEach(className => newEl.classList.add(className));
+            }
+
+            return newEl;
+        }
+
+        function append(parent, nodeList) {
+            nodeList.forEach(el => parent.appendChild(el));
+        }
+
+        const $container = document.getElementById('container');
+        const main = create('section', ['main']);
+        const toDoList = create('ul', ['to-do-list']);
+        append($container, [main, toDoList]);
+
+        const form = create('form', ['task-form']);
+        const newInput = create('input', ['new-input']);
+        const submit = create('input', ['task-submit']);
+        const submitLabel = create('label', ['submit-label']);
+        const submitIcon = create('i', ['bi', 'bi-plus-square', 'submit-icon']);
+        submit.setAttribute('type', 'submit');
+        submit.setAttribute('value', '');
+        newInput.setAttribute('type', 'text');
+        append(submitLabel, [submit, submitIcon]);
+        append(form, [newInput, submitLabel]);
+
+        const mainMsg = create('div', ['main-msg']);
+        const clockContainer = create('div', ['clock-container'])
+        clockContainer.innerHTML =
+            `
+            <div class='time-container'>
+                <div id='hr'>00</div>
+                <div class='divider'>:</div>
+                <div id='min'>00</div>
+                <div class='divider'>:</div>
+                <div id='sec'>00</div>
+            </div>
+            <div class='mm-dd-day'>
+                <div id='mm'>November</div>
+                <div id='dd'>17</div>
+                <div id='day'>Thursday</div>
+            </div> 
+            `
+        mainMsg.innerHTML = `Ready to own another day, James?`;
+
+        append(main, [clockContainer, mainMsg, form]);
+        const $hour = document.getElementById('hr');
+        const $minute = document.getElementById('min');
+        const $second = document.getElementById('sec');
+
+        const clock = setInterval(function renderTime() {
+            let date = new Date();
+            let hr = date.getHours();
+            let min = date.getMinutes();
+            let sec = date.getSeconds();
+
+            if (hr < 10) hr = '0' + hr;
+            if (min < 10) min = '0' + min;
+            if (sec < 10) sec = '0' + sec;
+
+            $hour.innerHTML = hr;
+            $minute.innerHTML = min;
+            $second.innerHTML = sec;
+        }, 0);
+
+        function displayDate(mm, dd, day) {
+            let date = new Date();
+            const months = [
+                'January',
+                'February',
+                'March',
+                'April',
+                'May',
+                'June',
+                'July',
+                'August',
+                'September',
+                'October',
+                'November',
+                'December'
+            ];
+
+            const days = [
+                'Monday',
+                'Tuesday',
+                'Wednesday',
+                'Thursday',
+                'Friday',
+                'Saturday',
+                'Sunday'
+            ];
+
+            const todayMonth = months[date.getMonth()];
+            const todayDate = date.getDate();
+            const todayDay = days[date.getDay() - 1];
+
+            mm.innerHTML = todayMonth;
+            dd.innerHTML = todayDate;
+            day.innerHTML = todayDay;
+        }
+
+        const curMonth = document.getElementById('mm');
+        const curDate = document.getElementById('dd');
+        const curDay = document.getElementById('day');
+        displayDate(curMonth, curDate, curDay);
+
+        let taskList = [];
+
+        form.addEventListener('submit', event => {
+            event.preventDefault();
+
+            let newTask = newInput.value;
+
+            if (newTask.length > 0) {
+                taskList.push(`<li class="task">${newTask}</li>`);
+                localStorage.setItem('list', JSON.stringify(taskList));
+                renderTaskList();
+            }
+            newInput.value = '';
+        })
+
+        function renderTaskList() {
+            const exists = [...document.getElementsByTagName('li')];
+            let taskList = JSON.parse(localStorage.getItem('list'));
+
+            if (taskList && taskList.length > 0) {
+                taskList.forEach(task => {
+                    if (!exists.includes(task)) {
+                        toDoList.innerHTML += task;
+                    }
+                })
+            }
+        }
+
+        renderTaskList();
+
+
+    </script>
+</body>
+
+</html>
