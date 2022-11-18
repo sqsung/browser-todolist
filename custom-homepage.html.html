@@ -53,18 +53,20 @@
             font-family: 'Roboto', sans-serif;
             font-weight: 400;
             /* letter-spacing: 1px; */
-            margin-top: 50px;
+            margin-top: 100px;
         }
 
         .new-input {
             width: 400px;
             height: 35px;
-            background-color: rgba(201, 201, 201, 0.3);
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(172, 172, 172, 0.5);
             margin-top: 20px;
             color: rgb(255, 255, 255);
-            border: none;
-            border-radius: 5px;
-            box-shadow: 1px 2px 8px 2px rgba(210, 210, 210, 0.3);
+            text-align: center;
+            /* border-radius: 5px; */
+            /* box-shadow: 1px 2px 8px 2px rgba(210, 210, 210, 0.3); */
         }
 
         .new-input:focus {
@@ -250,10 +252,15 @@
         form.addEventListener('submit', event => {
             event.preventDefault();
 
+            if (JSON.parse(localStorage.getItem('list'))) {
+                taskList = JSON.parse(localStorage.getItem('list'));
+            }
+
             let newTask = newInput.value;
 
             if (newTask.length > 0) {
                 taskList.push(`<li class="task">${newTask}</li>`);
+                console.log(taskList);
                 localStorage.setItem('list', JSON.stringify(taskList));
                 renderTaskList();
             }
@@ -261,20 +268,30 @@
         })
 
         function renderTaskList() {
-            const exists = [...document.getElementsByTagName('li')];
-            let taskList = JSON.parse(localStorage.getItem('list'));
+            let list = JSON.parse(localStorage.getItem('list'));
 
-            if (taskList && taskList.length > 0) {
-                taskList.forEach(task => {
-                    if (!exists.includes(task)) {
-                        toDoList.innerHTML += task;
-                    }
+            toDoList.innerHTML += list[list.length - 1];
+        }
+
+        function initializeTaskList() {
+            let list = JSON.parse(localStorage.getItem('list'));
+
+            if (list && list.length > 0) {
+                list.forEach(task => {
+                    toDoList.innerHTML += task;
                 })
             }
         }
 
-        renderTaskList();
+        initializeTaskList();
 
+        /*
+        Note : 
+        1. Local Storage 에 계속 다시 저장되는 현상 방지하고 
+        2. RenderTaskList 함수가 실행되는 시점에 대해 생각해볼 필요 있어보임 
+            2a. 헷갈리면 devtools 켜서 localStorage 동작하는 모습 참고 
+        3. progress bar 도입 
+        */
 
     </script>
 </body>
