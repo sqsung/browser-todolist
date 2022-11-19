@@ -21,9 +21,14 @@
             /* background: linear-gradient(280deg, #141e30, #243b55); */
             /* background: linear-gradient(250deg, #414141, #000000); */
             background: linear-gradient(225deg, #2C3E50, #000000);
+            background-color: rgb(0, 0, 0);
+            background-position: center;
+            background-repeat: no-repeat;
             font-family: 'Oswald', sans-serif;
             color: #fff;
             margin: 0;
+            border: none;
+            box-sizing: border-box;
         }
 
         #container {
@@ -134,6 +139,21 @@
 
         .to-do-list {
             font-family: 'Roboto', sans-serif;
+            list-style: none;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: scroll;
+        }
+
+        .task {
+            background-color: rgba(129, 129, 129, 0.5);
+            border-radius: 15px;
+            margin-bottom: 10px;
+            width: 70%;
+            padding: 40px;
+            font-size: 16px;
         }
     </style>
 
@@ -284,15 +304,6 @@
         }
 
         initializeTaskList();
-
-        /*
-        Note : 
-        1. Local Storage 에 계속 다시 저장되는 현상 방지하고 
-        2. RenderTaskList 함수가 실행되는 시점에 대해 생각해볼 필요 있어보임 
-            2a. 헷갈리면 devtools 켜서 localStorage 동작하는 모습 참고 
-        3. progress bar 도입 
-        */
-
     </script>
 </body>
 
