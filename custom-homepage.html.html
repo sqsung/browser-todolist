@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="./assets/default_favicon.png">
+    <link rel="icon" href="./assets/default-favicon.png">
     <link
         href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
-    <title>Own your day.</title>
+    <title>Own. Every. Day.</title>
 </head>
 
 <body>
@@ -20,7 +20,10 @@
         body {
             /* background: linear-gradient(280deg, #141e30, #243b55); */
             /* background: linear-gradient(250deg, #414141, #000000); */
-            background: linear-gradient(225deg, #2C3E50, #000000);
+            /* background: linear-gradient(225deg, #2C3E50, #000000); */
+            background-image: url('./assets/bg-candidate.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
             background-color: rgb(0, 0, 0);
             background-position: center;
             background-repeat: no-repeat;
@@ -38,31 +41,25 @@
             justify-content: space-between;
         }
 
-        .to-do-list {
-            width: 25%;
-            margin: 0;
-            border-left: 0.5px solid rgba(172, 172, 172, 0.5);
-        }
-
         .main {
-            width: 75%;
+            width: 100%;
+            min-width: 550px;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding-top: 70px;
-            /* border: 1px solid white; */
         }
 
         .main-msg {
-            font-size: 22px;
-            font-family: 'Roboto', sans-serif;
+            font-size: 24px;
+            font-family: 'Oswald', sans-serif;
             font-weight: 400;
-            /* letter-spacing: 1px; */
             margin-top: 100px;
+            letter-spacing: 1px;
         }
 
         .new-input {
-            width: 400px;
+            width: 550px;
             height: 35px;
             background: transparent;
             border: none;
@@ -70,12 +67,13 @@
             margin-top: 20px;
             color: rgb(255, 255, 255);
             text-align: center;
-            /* border-radius: 5px; */
-            /* box-shadow: 1px 2px 8px 2px rgba(210, 210, 210, 0.3); */
+            font-size: 20px;
         }
 
+        .new-input:hover,
         .new-input:focus {
             outline: none;
+            border-bottom: 1px solid rgba(246, 246, 246, 0.5);
         }
 
         .task-form {
@@ -101,22 +99,22 @@
         }
 
         .submit-label {
-            display: flex;
-            justify-content: center;
+            display: none;
+            /* justify-content: center;
             align-items: center;
-            margin-top: 20px;
+            margin-top: 20px; */
         }
 
         .time-container {
             display: flex;
-            align-items: center;
+            align-items: start;
             justify-content: center;
-            font-size: 80px;
+            font-size: 100px;
             font-weight: 700;
         }
 
         .mm-dd-day {
-            font-size: 22px;
+            font-size: 24px;
             letter-spacing: 1px;
             display: flex;
             align-items: center;
@@ -130,30 +128,77 @@
         #hr,
         #sec,
         #min {
-            width: 85px;
-            height: 100px;
+            width: 110px;
+            height: 150px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .to-do-list {
+            display: none;
+            width: 0%;
+        }
+
+        .to-do-list.active {
+            width: 50%;
+            min-width: 500px;
+            margin: 0;
             font-family: 'Roboto', sans-serif;
             list-style: none;
             padding: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            overflow: scroll;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
         .task {
-            background-color: rgba(129, 129, 129, 0.5);
-            border-radius: 15px;
+            background-color: rgba(129, 129, 129, 0.3);
+            border-radius: 50px;
             margin-bottom: 10px;
             width: 70%;
             padding: 40px;
             font-size: 16px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .task:hover {
+            background-color: rgba(108, 230, 136, 0.3);
+        }
+
+        .task span {
+            margin: 0;
+        }
+
+        .task i:hover {
+            color: rgba(128, 128, 128, 0.83);
+        }
+
+        .task.completed {
+            background-color: rgba(88, 255, 88, 0.5);
+        }
+
+        .progress {
+            background-color: rgba(129, 129, 129, 0.3);
+            border-radius: 20px;
+            height: 30px;
+            width: 550px;
+            margin-top: 250px;
+        }
+
+        .progress-done {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: repeating-linear-gradient(to left, rgba(10, 140, 10, 0.649), rgba(40, 159, 40, 0.649), rgba(88, 255, 88, 0.5));
+            border-radius: 20px;
+            color: #fff;
+            height: 100%;
+            width: 100%;
+            transition: 1s ease;
         }
     </style>
 
@@ -204,14 +249,20 @@
                 <div id='day'>Thursday</div>
             </div> 
             `
-        mainMsg.innerHTML = `Ready to own another day, James?`;
+        mainMsg.innerHTML = `Welcome back, James. Ready to own another day?`;
 
-        append(main, [clockContainer, mainMsg, form]);
+        const progressBar = create('div', ['progress']);
+        const progressDone = create('div', ['progress-done']);
+        append(progressBar, [progressDone]);
+        append(main, [clockContainer, mainMsg, form, progressBar]);
+
         const $hour = document.getElementById('hr');
         const $minute = document.getElementById('min');
         const $second = document.getElementById('sec');
 
-        const clock = setInterval(function renderTime() {
+        const clock = setInterval(renderTime, 1000);
+
+        function renderTime() {
             let date = new Date();
             let hr = date.getHours();
             let min = date.getMinutes();
@@ -224,7 +275,7 @@
             $hour.innerHTML = hr;
             $minute.innerHTML = min;
             $second.innerHTML = sec;
-        }, 0);
+        }
 
         function displayDate(mm, dd, day) {
             let date = new Date();
@@ -244,18 +295,18 @@
             ];
 
             const days = [
+                'Sunday',
                 'Monday',
                 'Tuesday',
                 'Wednesday',
                 'Thursday',
                 'Friday',
                 'Saturday',
-                'Sunday'
             ];
 
             const todayMonth = months[date.getMonth()];
             const todayDate = date.getDate();
-            const todayDay = days[date.getDay() - 1];
+            const todayDay = days[date.getDay()];
 
             mm.innerHTML = todayMonth;
             dd.innerHTML = todayDate;
@@ -267,43 +318,140 @@
         const curDay = document.getElementById('day');
         displayDate(curMonth, curDate, curDay);
 
-        let taskList = [];
+        let taskArr = [];
+
+        function taskEl(task, completed) {
+            this.task = task;
+            this.status = 'false';
+        }
 
         form.addEventListener('submit', event => {
             event.preventDefault();
 
-            if (JSON.parse(localStorage.getItem('list'))) {
-                taskList = JSON.parse(localStorage.getItem('list'));
+            if (JSON.parse(localStorage.getItem('Tasks'))) {
+                taskArr = JSON.parse(localStorage.getItem('Tasks'));
             }
 
             let newTask = newInput.value;
+            let alreadyIncluded = [];
 
-            if (newTask.length > 0) {
-                taskList.push(`<li class="task">${newTask}</li>`);
-                console.log(taskList);
-                localStorage.setItem('list', JSON.stringify(taskList));
-                renderTaskList();
+            for (let i = 0; i < taskArr.length; i++) {
+                alreadyIncluded.push(taskArr[i].task);
             }
-            newInput.value = '';
+
+            if (alreadyIncluded.includes(newTask)) {
+                alert('This task already exists.');
+            } else if (newTask.length > 0) {
+                let addedTaskEl = new taskEl(newTask, 'false');
+                taskArr.push(addedTaskEl);
+                localStorage.setItem('Tasks', JSON.stringify(taskArr));
+                newInput.value = '';
+                updateTaskList();
+                updateProgress();
+            }
         })
 
-        function renderTaskList() {
-            let list = JSON.parse(localStorage.getItem('list'));
+        function updateTaskList() {
+            let list = JSON.parse(localStorage.getItem('Tasks'));
 
-            toDoList.innerHTML += list[list.length - 1];
+            if (list.length > 0) {
+                toDoList.classList.add('active');
+                toDoList.innerHTML +=
+                    `
+                    <li class="task">
+                        <span>${list[list.length - 1].task}</span>
+                        <i class="bi bi-x-square delete-btn"></i>
+                    </li>
+                    `;
+            } else {
+                toDoList.classList.remove('active');
+            }
+            updateProgress();
         }
 
         function initializeTaskList() {
-            let list = JSON.parse(localStorage.getItem('list'));
+            let list = JSON.parse(localStorage.getItem('Tasks'));
 
             if (list && list.length > 0) {
-                list.forEach(task => {
-                    toDoList.innerHTML += task;
-                })
+                toDoList.classList.add('active');
+                for (let i = 0; i < list.length; i++) {
+                    if (list[i].status === 'false') {
+                        toDoList.innerHTML +=
+                            `
+                            <li class="task">
+                                <span>${list[i].task}</span>
+                                <i class="bi bi-x-square delete-btn"></i>
+                            </li>
+                            `
+                    } else if (list[i].status === 'true') {
+                        toDoList.innerHTML +=
+                            `
+                            <li class="task completed">
+                                <span>${list[i].task}</span>
+                                <i class="bi bi-x-square delete-btn"></i>
+                            </li>
+                            `
+                    }
+                }
+            } else {
+                toDoList.classList.remove('active');
             }
+            updateProgress();
+        }
+
+        toDoList.addEventListener('click', (e) => {
+            const lis = [...document.getElementsByClassName('task')];
+            const dlt = [...document.getElementsByClassName('delete-btn')];
+            let list = JSON.parse(localStorage.getItem('Tasks'));
+
+            if (lis.includes(e.target)) {
+                e.target.classList.toggle('completed');
+
+                for (let i = 0; i < list.length; i++) {
+                    if (list[i].task === e.target.innerText && list[i].status === 'false') {
+                        list[i].status = 'true';
+                        localStorage.setItem('Tasks', JSON.stringify(list));
+                        break;
+                    } else if (list[i].task === e.target.innerText && list[i].status === 'true') {
+                        list[i].status = 'false';
+                        localStorage.setItem('Tasks', JSON.stringify(list));
+                        break;
+                    }
+                }
+            }
+
+            if (dlt.includes(e.target)) {
+                for (let i = 0; i < list.length; i++) {
+                    if (list[i].task.replace(/[\n\r]+|[\s]{2,}/g, ' ').trim() === e.target.parentNode.innerText.replace(/[\n\r]+|[\s]{2,}/g, ' ').trim()) {
+                        list.splice(i, 1);
+                        localStorage.setItem('Tasks', JSON.stringify(list));
+                        toDoList.innerHTML = '';
+                        initializeTaskList();
+                        break;
+                    }
+                }
+            }
+
+            updateProgress();
+        })
+
+        function updateProgress() {
+            let list = JSON.parse(localStorage.getItem('Tasks'));
+            let count = 0;
+
+            list.forEach(task => {
+                if (task.status === 'true') {
+                    count++;
+                }
+            })
+            let newWidth = `${(count / list.length) * 100}%`;
+            if (newWidth === 'NaN%' || newWidth === '0%') progressDone.style.width = '100%';
+            progressDone.style.width = newWidth;
         }
 
         initializeTaskList();
+        renderTime();
+
     </script>
 </body>
 
