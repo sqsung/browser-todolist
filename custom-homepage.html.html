@@ -123,6 +123,7 @@
 
         .mm-dd-day div {
             margin: 0 2px 0 2px;
+            color: rgba(188, 188, 188, 1);
         }
 
         #hr,
@@ -332,7 +333,7 @@
                 taskArr = JSON.parse(localStorage.getItem('Tasks'));
             }
 
-            let newTask = newInput.value;
+            let newTask = newInput.value.trim();
             let alreadyIncluded = [];
 
             for (let i = 0; i < taskArr.length; i++) {
