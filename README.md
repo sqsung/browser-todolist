@@ -13,9 +13,11 @@ As a result, the HTML file can be saved and opened locally with all its styles a
 ![firstgif](https://user-images.githubusercontent.com/112310899/202935929-7fbc4fed-3f90-49d0-b437-c305532bd262.gif)
 
 2. Prevents Repeats
+
 ![ezgif com-gif-maker (5)](https://user-images.githubusercontent.com/112310899/205049275-f56bec3c-5e48-4e1b-804e-a137b5eedc1f.gif)
 
 3. Scrolling Todo List
+
 ![ezgif com-gif-maker (6)](https://user-images.githubusercontent.com/112310899/205049254-4cdbf3fc-a4b0-4bf5-8f22-96e23383d195.gif)
 
 4. Livetime Clock
