@@ -1,0 +1,187 @@
+body {
+    /* background: linear-gradient(280deg, #141e30, #243b55); */
+    /* background: linear-gradient(250deg, #414141, #000000); */
+    /* background: linear-gradient(225deg, #2C3E50, #000000); */
+    background-image: url('./assets/bg-candidate.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgb(0, 0, 0);
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: 'Oswald', sans-serif;
+    color: #fff;
+    margin: 0;
+    border: none;
+    box-sizing: border-box;
+}
+
+#container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+}
+
+.main {
+    width: 100%;
+    min-width: 550px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 70px;
+}
+
+.main-msg {
+    font-size: 24px;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    margin-top: 100px;
+    letter-spacing: 1px;
+}
+
+.new-input {
+    width: 550px;
+    height: 35px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(172, 172, 172, 0.5);
+    margin-top: 20px;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    font-size: 20px;
+}
+
+.new-input:hover,
+.new-input:focus {
+    outline: none;
+    border-bottom: 1px solid rgba(246, 246, 246, 0.5);
+}
+
+.task-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.task-submit {
+    margin-left: 10px;
+    height: 35px;
+    background-color: rgba(201, 201, 201, 0.0);
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+}
+
+.submit-icon {
+    font-size: 30px;
+    color: rgb(129, 129, 129);
+    cursor: pointer;
+}
+
+.submit-label {
+    display: none;
+    /* justify-content: center;
+    align-items: center;
+    margin-top: 20px; */
+}
+
+.time-container {
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    font-size: 100px;
+    font-weight: 700;
+}
+
+.mm-dd-day {
+    font-size: 24px;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mm-dd-day div {
+    margin: 0 2px 0 2px;
+    color: rgba(188, 188, 188, 1);
+}
+
+#hr,
+#sec,
+#min {
+    width: 110px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.to-do-list {
+    display: none;
+    width: 0%;
+}
+
+.to-do-list.active {
+    width: 50%;
+    min-width: 500px;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    list-style: none;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.task {
+    background-color: rgba(129, 129, 129, 0.3);
+    border-radius: 50px;
+    margin-bottom: 10px;
+    width: 70%;
+    padding: 40px;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.task:hover {
+    background-color: rgba(108, 230, 136, 0.3);
+}
+
+.task span {
+    margin: 0;
+}
+
+.task i:hover {
+    color: rgba(128, 128, 128, 0.83);
+}
+
+.task.completed {
+    background-color: rgba(88, 255, 88, 0.5);
+}
+
+.progress {
+    background-color: rgba(129, 129, 129, 0.3);
+    border-radius: 20px;
+    height: 30px;
+    width: 550px;
+    margin-top: 250px;
+}
+
+.progress-done {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: repeating-linear-gradient(to left,
+            rgba(10, 140, 10, 0.649),
+            rgba(40, 159, 40, 0.649),
+            rgba(88, 255, 88, 0.5));
+    border-radius: 20px;
+    color: #fff;
+    height: 100%;
+    width: 100%;
+    transition: 1s ease;
+}
