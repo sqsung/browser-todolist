@@ -1,4 +1,4 @@
-# custom-homepage-todo-list
+# browser-todolist
 
 This project is an interactive todo list that can be saved and used as your browser's main opening page.
 All CSS and JavaScript codes are written within the HTML file's `<style>` and `<script>` tags.
